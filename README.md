@@ -66,7 +66,7 @@ copy .env.example .env
 
 ## Environment Variables
 
-Do not hardcode API keys. Set these in your shell or in `.env` if you load it externally:
+Do not hardcode API keys. Set these in your shell or in a local `.env` file:
 
 ```text
 NVIDIA_API_KEY=your_api_key
@@ -74,7 +74,21 @@ NVIDIA_BASE_URL=https://your-nvidia-base-url
 NVIDIA_COSMOS_ENDPOINT=/v1/video/generations
 ```
 
-`NVIDIA_COSMOS_ENDPOINT` is shown as an example in `.env.example`; the generator primarily uses the endpoint in `configs/prompts_robotics.yaml`.
+The local `.env` file is ignored by Git. `python-dotenv` loads it automatically when present, and real shell or CI environment variables take precedence. `NVIDIA_COSMOS_ENDPOINT` is shown as an example in `.env.example`; the generator primarily uses the endpoint in `configs/prompts_robotics.yaml`.
+
+Create your local file:
+
+```bash
+cp .env.example .env
+```
+
+On Windows:
+
+```powershell
+copy .env.example .env
+```
+
+Then edit `.env` locally and paste your real NVIDIA NIM key there. Do not commit `.env`.
 
 ## Run Without an NVIDIA API Key
 
@@ -148,4 +162,3 @@ The tests create small synthetic videos and frames locally. They do not call NVI
 - Add an external NVIDIA Cosmos Reasoner or VLM call behind `PhysicalReasoningEvaluator` without changing the aggregation contract.
 - Install `open_clip_torch` and a compatible Torch build to enable real semantic metrics.
 - Keep local sample videos in `data/generated/` to make demos reproducible when credentials are unavailable.
-

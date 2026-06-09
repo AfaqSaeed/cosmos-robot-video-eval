@@ -12,6 +12,8 @@ from typing import Any
 
 import requests
 
+from utils.config import load_environment
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -36,6 +38,7 @@ class NIMClient:
         base_url: str | None = None,
         timeout_seconds: int = 120,
     ) -> None:
+        load_environment()
         self.api_key = api_key if api_key is not None else os.getenv("NVIDIA_API_KEY")
         self.base_url = base_url if base_url is not None else os.getenv("NVIDIA_BASE_URL")
         self.timeout_seconds = timeout_seconds
@@ -184,4 +187,3 @@ class NIMClient:
 
         walk(redacted)
         return redacted
-

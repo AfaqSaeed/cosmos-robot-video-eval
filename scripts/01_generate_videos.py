@@ -14,6 +14,7 @@ if str(SRC_ROOT) not in sys.path:
 
 from generation.cosmos_generator import CosmosGenerator  # noqa: E402
 from generation.nim_client import NIMConfigurationError  # noqa: E402
+from utils.config import load_environment  # noqa: E402
 from utils.logging import configure_logging  # noqa: E402
 
 
@@ -27,6 +28,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     configure_logging()
+    load_environment()
     args = parse_args()
     generator = CosmosGenerator(args.config, args.output_dir)
     try:
@@ -39,4 +41,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
