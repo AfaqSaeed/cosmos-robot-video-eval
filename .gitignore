@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+data/generated/*
+data/frames/*
+data/metrics/*
+data/reports/*
+!data/generated/.gitkeep
+!data/frames/.gitkeep
+!data/metrics/.gitkeep
+!data/reports/.gitkeep
+

@@ -1,0 +1,14 @@
+temporal:
+  flicker_threshold: 0.18
+  jump_threshold: 0.35
+  flow_instability_threshold: 0.30
+semantic:
+  min_consistency: 0.55
+task_usefulness:
+  min_frames: 16
+aggregation:
+  temporal_weight: 0.35
+  semantic_weight: 0.25
+  physical_weight: 0.25
+  task_weight: 0.15
+
