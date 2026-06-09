@@ -138,6 +138,8 @@ class NIMClient:
     def _url_for(self, endpoint_path: str) -> str:
         base = str(self.base_url).rstrip("/")
         path = endpoint_path if endpoint_path.startswith("/") else f"/{endpoint_path}"
+        if base.endswith("/v1") and path.startswith("/v1/"):
+            path = path[3:]
         return f"{base}{path}"
 
     @staticmethod
@@ -145,11 +147,19 @@ class NIMClient:
         candidates: list[Any] = [
             payload.get("video"),
             payload.get("video_base64"),
+            payload.get("b64_video"),
             payload.get("mp4"),
         ]
         data = payload.get("data")
         if isinstance(data, dict):
-            candidates.extend([data.get("video"), data.get("video_base64"), data.get("mp4")])
+            candidates.extend(
+                [
+                    data.get("video"),
+                    data.get("video_base64"),
+                    data.get("b64_video"),
+                    data.get("mp4"),
+                ]
+            )
         artifacts = payload.get("artifacts")
         if isinstance(artifacts, list):
             for artifact in artifacts:
@@ -159,6 +169,7 @@ class NIMClient:
                             artifact.get("base64"),
                             artifact.get("video"),
                             artifact.get("video_base64"),
+                            artifact.get("b64_video"),
                         ]
                     )
         for candidate in candidates:
@@ -175,7 +186,7 @@ class NIMClient:
         def walk(value: Any) -> None:
             if isinstance(value, dict):
                 for key in list(value.keys()):
-                    if key in {"video", "video_base64", "mp4", "base64"} and isinstance(
+                    if key in {"video", "video_base64", "b64_video", "mp4", "base64"} and isinstance(
                         value[key], str
                     ):
                         value[key] = f"<base64 redacted: {len(value[key])} chars>"

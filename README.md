@@ -71,7 +71,7 @@ Do not hardcode API keys. Set these in your shell or in a local `.env` file:
 ```text
 NVIDIA_API_KEY=your_api_key
 NVIDIA_BASE_URL=https://your-nvidia-base-url
-NVIDIA_COSMOS_ENDPOINT=/v1/video/generations
+NVIDIA_COSMOS_ENDPOINT=/v1/infer
 ```
 
 The local `.env` file is ignored by Git. `python-dotenv` loads it automatically when present, and real shell or CI environment variables take precedence. `NVIDIA_COSMOS_ENDPOINT` is shown as an example in `.env.example`; the generator primarily uses the endpoint in `configs/prompts_robotics.yaml`.
@@ -89,6 +89,8 @@ copy .env.example .env
 ```
 
 Then edit `.env` locally and paste your real NVIDIA NIM key there. Do not commit `.env`.
+
+For Cosmos WFM NIM deployments, the default endpoint is `/v1/infer`. The request schema in `configs/prompts_robotics.yaml` follows NVIDIA's Cosmos WFM API reference with `video_params` and expects a `b64_video` response.
 
 ## Run Without an NVIDIA API Key
 

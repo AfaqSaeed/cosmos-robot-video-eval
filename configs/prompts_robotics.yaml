@@ -1,10 +1,15 @@
 model: cosmos-video
-endpoint: /v1/video/generations
+endpoint: /v1/infer
 defaults:
-  duration_seconds: 4
-  fps: 16
-  width: 512
-  height: 512
+  negative_prompt: "blurry, low quality, artifacts"
+  prompt_upsampling: true
+  guidance_scale: 7.5
+  steps: 50
+  video_params:
+    height: 704
+    width: 1280
+    frames_count: 121
+    frames_per_sec: 24
   seed: 42
 prompts:
   - id: robot_arm_pick_cube
@@ -13,4 +18,3 @@ prompts:
     prompt: "A mobile robot drives through a warehouse aisle while avoiding a walking human. Static surveillance-style camera, realistic motion."
   - id: humanoid_reach_tool
     prompt: "A humanoid robot reaches toward a tool on a workbench without dropping nearby objects. Realistic indoor lab scene."
-
